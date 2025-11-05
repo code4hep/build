@@ -16,7 +16,9 @@ make install
 # scram
 cat << 'EOF_TOOLFILE' > podio.xml
 <tool name="podio" version="v01-06">
+  <lib name="podio"/>
   <lib name="podioIO"/>
+  <lib name="podioRootIO"/>
   <client>
     <environment name="PODIO_BASE" default="$CMSSW_BASE/install/podio"/>
     <environment name="INCLUDE" default="$PODIO_BASE/include"/>

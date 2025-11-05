@@ -17,7 +17,8 @@ make install
 # scram
 cat << 'EOF_TOOLFILE' > edm4hep.xml
 <tool name="edm4hep" version="v00-99-04">
-  <lib name=""/>
+  <lib name="edm4hep"/>
+  <lib name="edm4hepDict"/>
   <client>
     <environment name="EDM4HEP_BASE" default="$CMSSW_BASE/install/edm4hep"/>
     <environment name="INCLUDE" default="$EDM4HEP_BASE/include"/>

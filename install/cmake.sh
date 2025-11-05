@@ -2,7 +2,6 @@
 
 wget https://github.com/Kitware/CMake/releases/download/v4.1.2/cmake-4.1.2.tar.gz
 tar -xzf cmake-4.1.2.tar.gz
-rm cmake-4.1.2.tar.gz
 cd cmake-4.1.2
 
 # see README file in cmake, bootstrap initializes and builds

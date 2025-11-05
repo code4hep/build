@@ -6,9 +6,9 @@ mkdir build_podio
 cd build_podio
 
 cmake ../ \
-  -DCMAKE_INSTALL_PREFIX=${CMSSW_BASE}/install/podio
-  -DUSE_EXTERNAL_CATCH2=OFF
-  -Dfmt_DIR=/cvmfs/cms.cern.ch/el8_amd64_gcc13/external/fmt/10.2.1-31d67b0504b4ba2262f03d3c5cad83c1/lib/cmake/fmt
+  -DCMAKE_INSTALL_PREFIX=${CMSSW_BASE}/install/podio \
+  -DUSE_EXTERNAL_CATCH2=OFF \
+  -Dfmt_DIR="$(scram tool tag fmt LIBDIR)"/cmake/fmt
 
 make -j ${C4H_BUILD_CORES}
 make install

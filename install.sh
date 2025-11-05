@@ -14,4 +14,4 @@ for EXTERNAL in ${EXTERNALS[@]}; do
 	cmsenv
 done
 
-#rm -r ${CMSSW_BASE}/build
+rm -rf ${CMSSW_BASE}/build

@@ -1,9 +1,5 @@
 #!/bin/bash
 
-BASE_DIR=$(dirname -- "${BASH_SOURCE[0]}")
-
-export C4H_BUILD_CORES=8
-
 EXTERNALS=(
 cmake \
 podio \
@@ -11,6 +7,11 @@ edm4hep \
 )
 
 for EXTERNAL in ${EXTERNALS[@]}; do
-	echo $(basename ${EXTERNAL})
-	${BASE_DIR}/install/${EXTERNAL}.sh
+	echo ${EXTERNAL}
+	mkdir -p ${CMSSW_BASE}/install/${EXTERNAL}
+	${SETUP_DIR}/install/${EXTERNAL}.sh
+	# refresh env after tool installation
+	cmsenv
 done
+
+#rm -r ${CMSSW_BASE}/build

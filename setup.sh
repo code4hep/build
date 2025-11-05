@@ -1,13 +1,12 @@
-#!/bin/bash
+#!/bin/bash -x
 
-SETUP_DIR="$PWD"
-BUILD_DIR=$(readlink -f "$SETUP_DIR"/..)
+source init.sh
 
 cd ${BUILD_DIR}
-source /cvmfs/cms.cern.ch/cmsset_default.sh
-cmsrel CMSSW_16_0_0_pre2
-cd CMSSW_16_0_0_pre2/src
+cmsrel ${CMSSW_VERSION}
+cd ${CMSSW_VERSION}/src
 cmsenv
 mkdir -p ${CMSSW_BASE}/build
+mkdir -p ${CMSSW_BASE}/install
 cd ${CMSSW_BASE}/build
 ${SETUP_DIR}/install.sh

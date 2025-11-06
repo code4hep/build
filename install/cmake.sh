@@ -18,7 +18,7 @@ cat << 'EOF_TOOLFILE' > cmake.xml
   <client>
     <environment name="CMAKE_BASE" default="$CMSSW_BASE/install/cmake"/>
   </client>
-  <runtime name="PATH" value="$CMAKE_BASE/bin"/>
+  <runtime name="PATH" value="$CMAKE_BASE/bin" type="path"/>
 </tool>
 EOF_TOOLFILE
 

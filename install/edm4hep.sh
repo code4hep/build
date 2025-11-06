@@ -24,6 +24,7 @@ cat << 'EOF_TOOLFILE' > edm4hep.xml
     <environment name="INCLUDE" default="$EDM4HEP_BASE/include"/>
     <environment name="LIBDIR" default="$EDM4HEP_BASE/lib64"/>
   </client>
+  <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
 </tool>
 EOF_TOOLFILE
 

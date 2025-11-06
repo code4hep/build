@@ -25,6 +25,7 @@ cat << 'EOF_TOOLFILE' > podio.xml
     <environment name="LIBDIR" default="$PODIO_BASE/lib64"/>
   </client>
   <runtime name="PODIO" value="$PODIO_BASE"/>
+  <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
 </tool>
 EOF_TOOLFILE
 

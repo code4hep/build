@@ -25,6 +25,7 @@ cat << 'EOF_TOOLFILE' > edm4hep.xml
     <environment name="LIBDIR" default="$EDM4HEP_BASE/lib64"/>
   </client>
   <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+  <runtime name="PYTHON3PATH" default="$EDM4HEP_BASE/lib/python3.9/site-packages" type="path"/>
 </tool>
 EOF_TOOLFILE
 

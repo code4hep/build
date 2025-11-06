@@ -26,6 +26,7 @@ cat << 'EOF_TOOLFILE' > podio.xml
   </client>
   <runtime name="PODIO" value="$PODIO_BASE"/>
   <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+  <runtime name="PYTHON3PATH" default="$PODIO_BASE/lib/python3.9/site-packages" type="path"/>
 </tool>
 EOF_TOOLFILE
 

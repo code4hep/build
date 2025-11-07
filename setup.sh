@@ -9,6 +9,7 @@ cmsenv
 
 git cms-init
 git remote add c4h git@github.com:code4hep/cmssw
+git fetch c4h
 git checkout -b code4hep c4h/code4hep
 git cms-addpkg Code4hep
 

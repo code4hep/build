@@ -16,3 +16,5 @@ cd build
 cd build
 source init.sh
 ```
+
+`init.csh` is provided for `tcsh` users.

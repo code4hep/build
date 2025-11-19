@@ -1,6 +1,7 @@
 #!/bin/bash
 
-git clone https://github.com/key4hep/EDM4hep.git
+EDM4HEP_VERSION=v00-99-04
+git clone https://github.com/key4hep/EDM4hep.git -b ${EDM4HEP_VERSION}
 cd EDM4hep
 mkdir build_edm4hep
 cd build_edm4hep
@@ -15,17 +16,17 @@ make -j ${C4H_BUILD_CORES}
 make install
 
 # scram
-cat << 'EOF_TOOLFILE' > edm4hep.xml
-<tool name="edm4hep" version="v00-99-04">
+cat << EOF_TOOLFILE > edm4hep.xml
+<tool name="edm4hep" version="${EDM4HEP_VERSION}">
   <lib name="edm4hep"/>
   <lib name="edm4hepDict"/>
   <client>
-    <environment name="EDM4HEP_BASE" default="$CMSSW_BASE/install/edm4hep"/>
-    <environment name="INCLUDE" default="$EDM4HEP_BASE/include"/>
-    <environment name="LIBDIR" default="$EDM4HEP_BASE/lib64"/>
+    <environment name="EDM4HEP_BASE" default="\$CMSSW_BASE/install/edm4hep"/>
+    <environment name="INCLUDE" default="\$EDM4HEP_BASE/include"/>
+    <environment name="LIBDIR" default="\$EDM4HEP_BASE/lib64"/>
   </client>
-  <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
-  <runtime name="PYTHON3PATH" default="$EDM4HEP_BASE/lib/python3.9/site-packages" type="path"/>
+  <runtime name="ROOT_INCLUDE_PATH" value="\$INCLUDE" type="path"/>
+  <runtime name="PYTHON3PATH" default="\$EDM4HEP_BASE/lib/python3.9/site-packages" type="path"/>
 </tool>
 EOF_TOOLFILE
 

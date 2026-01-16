@@ -8,6 +8,7 @@ cd build_podio
 
 cmake ../ \
   -DCMAKE_INSTALL_PREFIX=${CMSSW_BASE}/install/podio \
+  -DCMAKE_BUILD_TYPE="$CMAKE_BUILD_TYPE" \
   -DUSE_EXTERNAL_CATCH2=OFF \
   -Dfmt_DIR="$(scram tool tag fmt LIBDIR)"/cmake/fmt
 

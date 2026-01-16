@@ -9,6 +9,7 @@ cd build_edm4hep
 EDM4HEP_PREFIX=${CMSSW_BASE}/install/edm4hep
 cmake ../ \
   -DCMAKE_INSTALL_PREFIX=${EDM4HEP_PREFIX} \
+  -DCMAKE_BUILD_TYPE="$CMAKE_BUILD_TYPE" \
   -DROOT_DIR="$(scram tool tag root_interface ROOT_INTERFACE_BASE)"/cmake \
   -DEDM4HEP_WITH_JSON=OFF \
   -DUSE_EXTERNAL_CATCH2=OFF

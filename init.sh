@@ -6,3 +6,6 @@ if [ -e "$CMSSW_DIR" ]; then
 	cd ${CMSSW_DIR}/src
 	cmsenv
 fi
+
+# default value
+export CMAKE_BUILD_TYPE=RelWithDebInfo

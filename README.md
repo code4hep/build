@@ -10,6 +10,11 @@ cd build
 ./setup.sh
 ```
 
+To enable debug symbols in all external and CMSSW builds, change the last line:
+```bash
+./setup.sh -d
+```
+
 ## Usage
 
 ```bash

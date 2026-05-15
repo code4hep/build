@@ -30,4 +30,4 @@ scratch/
    build/
    CMSSW_*/
 ```
-where `CMSSW_*` is the presently used CMSSW release being used by Code4Hep.
+where `CMSSW_*` is the CMSSW release currently used by Code4Hep.

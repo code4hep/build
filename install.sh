@@ -4,6 +4,8 @@ EXTERNALS=(
 cmake \
 podio \
 edm4hep \
+lcio \
+k4geo \
 )
 
 for EXTERNAL in ${EXTERNALS[@]}; do

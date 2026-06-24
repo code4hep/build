@@ -9,11 +9,11 @@ cd build_lcio
 LCIO_PREFIX=${INSTALL_DIR}/lcio
 CMAKE_PREFIXES=(
 $(scram_tag root_interface ROOT_INTERFACE_BASE) \
-$(scram_tag CLHEP_BASE) \
 )
 cmake ../ \
   -DCMAKE_INSTALL_PREFIX=${LCIO_PREFIX} \
   -DCMAKE_BUILD_TYPE="$CMAKE_BUILD_TYPE" \
-  -DCMAKE_PREFIX_PATH=$(join_path "${CMAKE_PREFIXES[@]}")
+  -DCMAKE_PREFIX_PATH=$(join_path "${CMAKE_PREFIXES[@]}") \
+  -DCLHEP_ROOT="$(find $(scram_tag clhep LIBDIR) -maxdepth 1 -type d -name "CLHEP*" -print -quit)"
 
 make -j ${C4H_BUILD_CORES} install

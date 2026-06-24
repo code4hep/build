@@ -28,7 +28,6 @@ $(scram_tag boost BOOST_BASE) \
 $(scram_tag dd4hep-core DD4HEP_CORE_BASE) \
 $(scram_tag geant4core GEANT4CORE_BASE) \
 ${INSTALL_DIR}/lcio \
-${INSTALL_DIR}/podio \
 ${INSTALL_DIR}/edm4hep \
 )
 cmake ../ \
@@ -38,6 +37,7 @@ cmake ../ \
   -DCMAKE_PROJECT_k4geo_INCLUDE=build_k4geo/dd4hep_patch.cmake \
   -DXercesC_INCLUDE_DIR=$(scram_tag xerces-c INCLUDE) \
   -DXercesC_LIBRARY=$(scram_tag xerces-c LIBDIR)/libxerces-c.so \
-  -DCMAKE_PREFIX_PATH=$(join_path "${CMAKE_PREFIXES[@]}")
+  -DCMAKE_PREFIX_PATH=$(join_path "${CMAKE_PREFIXES[@]}") \
+  -Dpodio_ROOT=${INSTALL_DIR}/podio/lib64/cmake
 
 make -j ${C4H_BUILD_CORES} install

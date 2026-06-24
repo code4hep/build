@@ -7,17 +7,20 @@ mkdir build_stitched
 cd build_stitched
 
 STITCHED_PREFIX=${INSTALL_DIR}/stitched
+CMAKE_PREFIXES=(
+$(scram_tag tbb TBB_BASE) \
+$(scram_tag root_interface ROOT_INTERFACE_BASE) \
+$(scram_tag boost BOOST_BASE) \
+$(scram_tag clhep CLHEP_BASE) \
+$(scram_tag cpu_features CPU_FEATURES_BASE) \
+$(scram_tag tinyxml2 TINYXML2_BASE) \
+$(scram_tag py3-pybind11 PY3_PYBIND11_BASE) \
+${INSTALL_DIR}/c4h_md5 \
+)
 cmake ../ \
   -DCMAKE_INSTALL_PREFIX=${STITCHED_PREFIX} \
   -DCMAKE_BUILD_TYPE="$CMAKE_BUILD_TYPE" \
-  -DTBB_DIR=$(scram_tag tbb LIBDIR)/cmake/TBB \
-  -DROOT_DIR=$(scram_tag root_interface ROOT_INTERFACE_BASE)/cmake \
-  -DBoost_DIR=$(scram_tag boost BOOST_BASE)/cmake/Boost-1.80.0 \
-  -DCLHEP_DIR=$(scram_tag clhep LIBDIR)/CLHEP-2.4.7.1 \
   -DPython_INCLUDE_DIR=$(scram_tag python3 INCLUDE) \
-  -DCpuFeatures_DIR=$(scram_tag cpu_features LIBDIR)/cmake/CpuFeatures \
-  -Dtinyxml2_DIR=$(scram_tag tinyxml2 LIBDIR)/cmake/tinyxml2 \
-  -Dpybind11_DIR=$(scram_tag py3-pybind11 PY3_PYBIND11_BASE)/share/cmake/pybind11 \
-  -Dc4h_md5_DIR=${C4H_MD5_ROOT}/lib64/cmake/c4h_md5
+  -DCMAKE_PREFIX_PATH=$(join_path "${CMAKE_PREFIXES[@]}")
 
 make -j ${C4H_BUILD_CORES} install

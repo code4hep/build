@@ -23,6 +23,14 @@ endif()
 EOF
 
 K4GEO_PREFIX=${INSTALL_DIR}/k4geo
+CMAKE_PREFIXES=(
+$(scram_tag boost BOOST_BASE) \
+$(scram_tag dd4hep-core DD4HEP_CORE_BASE) \
+$(scram_tag geant4core GEANT4CORE_BASE) \
+${INSTALL_DIR}/lcio \
+${INSTALL_DIR}/podio \
+${INSTALL_DIR}/edm4hep \
+)
 cmake ../ \
   -DCMAKE_INSTALL_PREFIX=${K4GEO_PREFIX} \
   -DCMAKE_BUILD_TYPE="$CMAKE_BUILD_TYPE" \
@@ -30,12 +38,6 @@ cmake ../ \
   -DCMAKE_PROJECT_k4geo_INCLUDE=build_k4geo/dd4hep_patch.cmake \
   -DXercesC_INCLUDE_DIR=$(scram_tag xerces-c INCLUDE) \
   -DXercesC_LIBRARY=$(scram_tag xerces-c LIBDIR)/libxerces-c.so \
-  -DBoost_DIR=$(scram_tag boost BOOST_BASE)/cmake/Boost-1.80.0 \
-  -DDD4hep_DIR=$(scram_tag dd4hep-core DD4HEP_CORE_BASE)/cmake \
-  -DGeant4_DIR=$(scram_tag geant4core LIBDIR)/cmake/Geant4 \
-  -DLCIO_DIR=${INSTALL_DIR}/lcio/lib64/cmake/LCIO \
-  -DSIO_DIR=${INSTALL_DIR}/lcio/lib64/cmake/SIO \
-  -Dpodio_DIR=${INSTALL_DIR}/podio/lib64/cmake/podio \
-  -DEDM4HEP_DIR=${INSTALL_DIR}/edm4hep/lib64/cmake/EDM4HEP
+  -DCMAKE_PREFIX_PATH=$(join_path "${CMAKE_PREFIXES[@]}")
 
 make -j ${C4H_BUILD_CORES} install

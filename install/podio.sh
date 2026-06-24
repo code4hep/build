@@ -10,7 +10,7 @@ cmake ../ \
   -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}/podio \
   -DCMAKE_BUILD_TYPE="$CMAKE_BUILD_TYPE" \
   -DUSE_EXTERNAL_CATCH2=OFF \
-  -Dfmt_DIR="$(scram_tag fmt LIBDIR)"/cmake/fmt
+  -DCMAKE_PREFIX_PATH=$(scram_tag fmt FMT_BASE)
 
 make -j ${C4H_BUILD_CORES}
 make install

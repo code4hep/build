@@ -2,9 +2,9 @@
 
 EXTERNALS=(
 #cmake \
-#podio \
-#edm4hep \
-#lcio \
+podio \
+edm4hep \
+lcio \
 k4geo \
 c4h_md5 \
 stitched \

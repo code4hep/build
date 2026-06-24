@@ -14,3 +14,9 @@ scram_tag(){
 	scram tool tag $TOOL $TAG 2> /dev/null || true
 }
 export -f scram_tag
+
+join_path(){
+  local IFS=';'
+  echo "$*"
+}
+export -f join_path

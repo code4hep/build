@@ -7,5 +7,10 @@ if [ -e "$CMSSW_DIR" ]; then
 	cmsenv
 fi
 
-# default value
-export CMAKE_BUILD_TYPE=RelWithDebInfo
+scram_tag(){
+	cd $CMSSW_BASE
+	TOOL="$1"
+	TAG="$2"
+	scram tool tag $TOOL $TAG 2> /dev/null || true
+}
+export -f scram_tag

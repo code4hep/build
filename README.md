@@ -1,5 +1,7 @@
 # CODE4hep build
 
+This is an interim branch to bootstrap a CMake-based installation, still using CMSSW dependencies.
+
 ## Installation
 
 ```bash
@@ -29,5 +31,7 @@ At the end, you will have the following directory structure
 scratch/
    build/
    CMSSW_*/
+   install/
+   tmp/
 ```
 where `CMSSW_*` is the CMSSW release currently used by Code4Hep.

@@ -3,11 +3,11 @@
 EXTERNALS=(
 #cmake \
 #podio \
-edm4hep \
+#edm4hep \
 #lcio \
-k4geo \
-c4h_md5 \
-stitched \
+#k4geo \
+#c4h_md5 \
+#stitched \
 code4hep \
 )
 

@@ -54,6 +54,7 @@ ${INSTALL_DIR}/edm4hep \
 ${INSTALL_DIR}/stitched \
 )
 cmake ../ \
+  -Wno-dev \
   -DCMAKE_INSTALL_PREFIX=${CODE4HEP_PREFIX} \
   -DCMAKE_BUILD_TYPE="$CMAKE_BUILD_TYPE" \
   -DCMAKE_PROJECT_Code4hep_INCLUDE=build_Code4hep/clhep_patch.cmake \

@@ -6,6 +6,7 @@ podio \
 edm4hep \
 lcio \
 k4geo \
+geant4 \
 )
 
 for EXTERNAL in ${EXTERNALS[@]}; do

@@ -6,7 +6,7 @@ cd geant4
 mkdir build_geant4
 cd build_geant4
 
-export XERCES_C_DIR=/cvmfs/cms.cern.ch/el8_amd64_gcc13/external/xerces-c/3.1.3-ab719034dc2061fa61b09353203a0c2d
+export XERCES_C_DIR=$(scram tool tag xerces-c XERCES_C_BASE)
 
 cmake ../ \
       -DCMAKE_INSTALL_PREFIX=${CMSSW_BASE}/install/geant4 \

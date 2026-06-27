@@ -48,6 +48,7 @@ $(scram_tag root_interface ROOT_INTERFACE_BASE) \
 $(scram_tag json JSON_BASE) \
 $(scram_tag catch2 CATCH2_BASE) \
 $(scram_tag dd4hep-core DD4HEP_CORE_BASE) \
+$(scram_tag py3-pybind11 PY3_PYBIND11_BASE) \
 ${INSTALL_DIR}/c4h_md5 \
 ${INSTALL_DIR}/podio \
 ${INSTALL_DIR}/edm4hep \
@@ -59,7 +60,9 @@ cmake ../ \
   -DCMAKE_BUILD_TYPE="$CMAKE_BUILD_TYPE" \
   -DCMAKE_PROJECT_Code4hep_INCLUDE=build_Code4hep/clhep_patch.cmake \
   -DCMAKE_PREFIX_PATH=$(join_path "${CMAKE_PREFIXES[@]}") \
-  -DPython_INCLUDE_DIR=$(scram_tag python3 INCLUDE) \
-  -DCLHEP_ROOT="$(find $(scram_tag clhep LIBDIR) -maxdepth 1 -type d -name "CLHEP*" -print -quit)"
+  -DPython3_ROOT_DIR=$(scram_tag python3 PYTHON3_BASE) \
+  -DCLHEP_ROOT="$(find $(scram_tag clhep LIBDIR) -maxdepth 1 -type d -name "CLHEP*" -print -quit)" \
+  -DXercesC_INCLUDE_DIR=$(scram_tag xerces-c INCLUDE) \
+  -DXercesC_LIBRARY=$(scram_tag xerces-c LIBDIR)/libxerces-c.so
 
 make -j ${C4H_BUILD_CORES} install

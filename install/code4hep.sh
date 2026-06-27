@@ -20,14 +20,14 @@ macro(find_package _package)
     # Raise the execution fence
     set(_CLHEP_IN_FIND_PACKAGE TRUE CACHE INTERNAL "")
     # Run the native CMake find_package engine
+    message(STATUS "[PATCH] run native CMake find_package")
     _find_package(${ARGV})
-    message(STATUS "[PATCH] ran native CMake find_package")
-    message(STATUS "[PATCH] CLHEP_INCLUDE_DIR = ${CLHEP_INCLUDE_DIR}")
     # Force override the variable if it points to the broken CMSSW path
     if("${_package}" STREQUAL "CLHEP" OR CLHEP_INCLUDE_DIR)
       set(_CORRECT_CLHEP "MY_CLHEP_PATH")
       if(CLHEP_INCLUDE_DIR MATCHES "CMSSW")
         message(STATUS "[PATCH] Overriding broken CLHEP path: ${CLHEP_INCLUDE_DIR}")
+        message(STATUS "[PATCH] Fixed CLHEP path: ${_CORRECT_CLHEP}")
         set(CLHEP_INCLUDE_DIR "${_CORRECT_CLHEP}" PARENT_SCOPE)
         set(CLHEP_INCLUDE_DIR "${_CORRECT_CLHEP}")
         set(CLHEP_INCLUDE_DIR "${_CORRECT_CLHEP}" CACHE PATH "Force corrected CLHEP include path" FORCE)

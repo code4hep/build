@@ -41,3 +41,5 @@ cmake ../ \
   -Dpodio_ROOT=${INSTALL_DIR}/podio/lib64/cmake
 
 make -j ${C4H_BUILD_CORES} install
+
+update_paths ${K4GEO_PREFIX}

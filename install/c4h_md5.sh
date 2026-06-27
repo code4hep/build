@@ -11,3 +11,5 @@ cmake ../ \
   -DCMAKE_BUILD_TYPE="$CMAKE_BUILD_TYPE"
 
 make -j ${C4H_BUILD_CORES} install
+
+update_paths $C4H_MD5_PREFIX

@@ -6,10 +6,11 @@ cd geant4
 mkdir build_geant4
 cd build_geant4
 
-export XERCES_C_DIR=$(scram_tag xerces-c XERCES_C_BASE)
+XERCES_C_DIR=$(scram_tag xerces-c XERCES_C_BASE)
+GEANT4_PREFIX=${INSTALL_DIR}/geant4
 
 cmake ../ \
-      -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}/geant4 \
+      -DCMAKE_INSTALL_PREFIX=${GEANT4_PREFIX} \
       -DCMAKE_CXX_STANDARD:STRING="20" \
       -DCMAKE_INSTALL_LIBDIR=lib \
       -DCMAKE_PREFIX_PATH="${INSTALL_DIR}" \
@@ -25,3 +26,5 @@ cmake ../ \
 
 make -j ${C4H_BUILD_CORES}
 make install
+
+update_paths ${GEANT4_PREFIX}

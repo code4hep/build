@@ -8,6 +8,9 @@ cd cmake-4.1.2
 # enough of itself that cmake can completely build itself in
 # the next step
 
-./bootstrap --prefix=${INSTALL_DIR}/cmake/
+CMAKE_PREFIX=${INSTALL_DIR}/cmake/
+./bootstrap --prefix=${CMAKE_PREFIX}
 make -j ${C4H_BUILD_CORES}
 make install
+
+update_paths ${CMAKE_PREFIX}

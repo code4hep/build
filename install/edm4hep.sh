@@ -24,3 +24,5 @@ make install
 # manually install test script
 mkdir -p ${EDM4HEP_PREFIX}/bin
 cp ../scripts/createEDM4hepFile.py ${EDM4HEP_PREFIX}/bin
+
+update_paths ${EDM4HEP_PREFIX}

@@ -24,3 +24,5 @@ cmake ../ \
   -DCLHEP_ROOT="$(find $(scram_tag clhep LIBDIR) -maxdepth 1 -type d -name "CLHEP*" -print -quit)"
 
 make -j ${C4H_BUILD_CORES} install
+
+update_paths ${STITCHED_PREFIX}

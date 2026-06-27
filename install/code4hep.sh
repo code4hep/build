@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source $(which stitched_env.sh)
+
 git clone https://github.com/kpedro88/Code4hep -b reorg_cmake
 cd Code4hep
 mkdir build_Code4hep
@@ -65,4 +67,5 @@ cmake ../ \
   -DXercesC_INCLUDE_DIR=$(scram_tag xerces-c INCLUDE) \
   -DXercesC_LIBRARY=$(scram_tag xerces-c LIBDIR)/libxerces-c.so
 
-make -j ${C4H_BUILD_CORES} install
+# make -j ${C4H_BUILD_CORES} install
+VERBOSE=1 make -k install

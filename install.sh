@@ -1,13 +1,13 @@
 #!/bin/bash
 
 EXTERNALS=(
-#cmake \
-#podio \
-#edm4hep \
-#lcio \
-#k4geo \
-#c4h_md5 \
-#stitched \
+cmake \
+podio \
+edm4hep \
+lcio \
+k4geo \
+c4h_md5 \
+stitched \
 code4hep \
 )
 

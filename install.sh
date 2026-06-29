@@ -15,6 +15,7 @@ for EXTERNAL in ${EXTERNALS[@]}; do
 	echo ${EXTERNAL}
 	mkdir -p ${CMSSW_BASE}/install/${EXTERNAL}
 	${SETUP_DIR}/install/${EXTERNAL}.sh
+	update_paths ${INSTALL_DIR}/${EXTERNAL}
 done
 
 rm -rf ${CMSSW_BASE}/build

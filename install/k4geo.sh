@@ -10,7 +10,7 @@ source $(scram_tag dd4hep-core DD4HEP_CORE_BASE)/bin/thisdd4hep.sh
 sed -i 's/find_package(DD4hep 1.31 REQUIRED COMPONENTS DDRec DDG4 DDParsers)/find_package(DD4hep 1.31 REQUIRED COMPONENTS DDRec DDParsers)/' ../CMakeLists.txt
 cat << 'EOF' > dd4hep_patch.cmake
 add_library(DD4hep::DDG4 STATIC IMPORTED GLOBAL)
-set_target_properties(DD4hep::DDG4 PROPERTIES IMPORTED_LOCATION "${DD4hep_DIR}/../lib/libDDG4-static.a")
+set_target_properties(DD4hep::DDG4 PROPERTIES IMPORTED_LOCATION "MY_DDG4_PATH/libDDG4-static.a")
 find_package(Geant4 REQUIRED)
 if(TARGET Geant4::Geant4)
   message(STATUS "[PATCH] Linking Geant4 usage requirements to DD4hep::DDG4")
@@ -21,6 +21,7 @@ elseif(Geant4_INCLUDE_DIRS)
   target_link_libraries(DD4hep::DDG4 INTERFACE ${Geant4_LIBRARIES})
 endif()
 EOF
+sed -i 's~MY_DDG4_PATH~'$(scram_tag dd4hep-core LIBDIR)'~' dd4hep_patch.cmake
 
 K4GEO_PREFIX=${INSTALL_DIR}/k4geo
 CMAKE_PREFIXES=(

@@ -7,8 +7,10 @@ cd Code4hep
 mkdir build_Code4hep
 cd build_Code4hep
 
-mkdir -p cmake_patch
-cat << 'EOF' > cmake_patch/Pythia8Config.cmake
+PATCH_DIR=cmake_patch
+mkdir -p ${PATCH_DIR}
+
+cat << 'EOF' > ${PATCH_DIR}/Pythia8Config.cmake
 set(Pythia8_FOUND TRUE)
 message(STATUS "[PATCH] Creating synthetic Pythia8 target from ${Pythia8_LIBRARY} and ${Pythia8_INCLUDE_DIR}")
 add_library(Pythia8::Pythia8 UNKNOWN IMPORTED)
@@ -17,6 +19,30 @@ set_target_properties(Pythia8::Pythia8 PROPERTIES
 	INTERFACE_INCLUDE_DIRECTORIES "${Pythia8_INCLUDE_DIR}"
 )
 EOF
+
+cat << 'EOF' > ${PATCH_DIR}/Geant4Config.cmake
+# 1. Directly include the real Geant4Config file, skipping the search engine entirely
+include("MY_GEANT4_DIR/Geant4Config.cmake")
+
+# 2. Create the global target using the newly loaded variables
+if(Geant4_FOUND AND NOT TARGET Geant4::Geant4)
+    message(STATUS "[Proxy] Creating global target Geant4::Geant4 from \${Geant4_LIBRARIES}")
+
+    # Step A: Create a local interface library
+    add_library(Geant4_wrapper_target INTERFACE)
+
+    # Step B: Link the dynamic libraries to our local wrapper
+    # Hide the wrapper dependency from public export sets
+    target_link_libraries(Geant4_wrapper_target INTERFACE
+        $<BUILD_INTERFACE:${Geant4_LIBRARIES}>
+    )
+
+    # Step C: Create the ALIAS target
+    # This target is automatically visible globally across the project.
+    add_library(Geant4::Geant4 ALIAS Geant4_wrapper_target)
+endif()
+EOF
+sed -i 's~MY_GEANT4_DIR~'${INSTALL_DIR}/geant4/lib/cmake/Geant4'~' ${PATCH_DIR}/Geant4Config.cmake
 
 CODE4HEP_PREFIX=${INSTALL_DIR}/code4hep
 CMAKE_PREFIXES=(
@@ -28,7 +54,7 @@ $(scram_tag catch2 CATCH2_BASE) \
 $(scram_tag dd4hep-core DD4HEP_CORE_BASE) \
 $(scram_tag py3-pybind11 PY3_PYBIND11_BASE) \
 $(scram_tag hepmc3 HEPMC3_BASE) \
-${PWD}/cmake_patch \
+${PWD}/${PATCH_DIR} \
 ${INSTALL_DIR}/c4h_md5 \
 ${INSTALL_DIR}/podio \
 ${INSTALL_DIR}/edm4hep \

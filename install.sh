@@ -4,6 +4,7 @@ EXTERNALS=(
 cmake \
 podio \
 edm4hep \
+geant4 \
 lcio \
 k4geo \
 )

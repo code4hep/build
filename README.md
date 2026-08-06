@@ -1,13 +1,13 @@
 # CODE4hep build
 
-This is an interim branch to bootstrap a CMake-based installation, still using CMSSW dependencies.
+This is an interim solution to bootstrap a CMake-based installation, still using CMSSW dependencies.
 
 ## Installation
 
 ```bash
 mkdir -p scratch
 cd scratch
-git clone git@github.com:code4hep/build -b bootstrap
+git clone git@github.com:code4hep/build
 cd build
 ./setup.sh
 ```

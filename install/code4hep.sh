@@ -2,7 +2,7 @@
 
 source $(which stitched_env.sh)
 
-git clone https://github.com/kpedro88/Code4hep -b reorg_cmake2_rebase
+git clone https://github.com/code4hep/Code4hep
 cd Code4hep
 mkdir build_Code4hep
 cd build_Code4hep

@@ -6,11 +6,11 @@ cd k4geo
 mkdir build_k4geo
 cd build_k4geo
 
-source $(scram tool tag dd4hep-core DD4HEP_CORE_BASE)/bin/thisdd4hep.sh
+source $(scram_tag dd4hep-core DD4HEP_CORE_BASE)/bin/thisdd4hep.sh
 sed -i 's/find_package(DD4hep 1.31 REQUIRED COMPONENTS DDRec DDG4 DDParsers)/find_package(DD4hep 1.31 REQUIRED COMPONENTS DDRec DDParsers)/' ../CMakeLists.txt
 cat << 'EOF' > dd4hep_patch.cmake
 add_library(DD4hep::DDG4 STATIC IMPORTED GLOBAL)
-set_target_properties(DD4hep::DDG4 PROPERTIES IMPORTED_LOCATION "${DD4hep_DIR}/../lib/libDDG4-static.a")
+set_target_properties(DD4hep::DDG4 PROPERTIES IMPORTED_LOCATION "MY_DDG4_PATH/libDDG4-static.a")
 find_package(Geant4 REQUIRED)
 if(TARGET Geant4::Geant4)
   message(STATUS "[PATCH] Linking Geant4 usage requirements to DD4hep::DDG4")
@@ -21,47 +21,26 @@ elseif(Geant4_INCLUDE_DIRS)
   target_link_libraries(DD4hep::DDG4 INTERFACE ${Geant4_LIBRARIES})
 endif()
 EOF
+sed -i 's~MY_DDG4_PATH~'$(scram_tag dd4hep-core LIBDIR)'~' dd4hep_patch.cmake
 
-K4GEO_PREFIX=${CMSSW_BASE}/install/k4geo
+K4GEO_PREFIX=${INSTALL_DIR}/k4geo
+CMAKE_PREFIXES=(
+$(scram_tag boost BOOST_BASE) \
+$(scram_tag dd4hep-core DD4HEP_CORE_BASE) \
+$(scram_tag geant4core GEANT4CORE_BASE) \
+${INSTALL_DIR}/lcio \
+${INSTALL_DIR}/edm4hep \
+)
 cmake ../ \
   -DCMAKE_INSTALL_PREFIX=${K4GEO_PREFIX} \
   -DCMAKE_BUILD_TYPE="$CMAKE_BUILD_TYPE" \
-  -DPython_INCLUDE_DIR=$(scram tool tag python3 INCLUDE) \
+  -DPython_INCLUDE_DIR=$(scram_tag python3 INCLUDE) \
   -DCMAKE_PROJECT_k4geo_INCLUDE=build_k4geo/dd4hep_patch.cmake \
-  -DXercesC_INCLUDE_DIR=$(scram tool tag xerces-c INCLUDE) \
-  -DXercesC_LIBRARY=$(scram tool tag xerces-c LIBDIR)/libxerces-c.so \
-  -DDD4hep_DIR=$(scram tool tag dd4hep-core DD4HEP_CORE_BASE)/cmake \
-  -DGeant4_DIR=$(scram tool tag geant4core LIBDIR)/cmake/Geant4 \
-  -DLCIO_DIR=$(scram tool tag lcio LIBDIR)/cmake/LCIO \
-  -DSIO_DIR=$(scram tool tag lcio LIBDIR)/cmake/SIO \
-  -Dpodio_DIR=$(scram tool tag podio LIBDIR)/cmake/podio \
-  -DEDM4HEP_DIR=$(scram tool tag edm4hep LIBDIR)/cmake/EDM4HEP
+  -DXercesC_INCLUDE_DIR=$(scram_tag xerces-c INCLUDE) \
+  -DXercesC_LIBRARY=$(scram_tag xerces-c LIBDIR)/libxerces-c.so \
+  -DCMAKE_PREFIX_PATH=$(join_path "${CMAKE_PREFIXES[@]}") \
+  -Dpodio_ROOT=${INSTALL_DIR}/podio/lib64/cmake
 
 make -j ${C4H_BUILD_CORES} install
 
-# scram
-cat << EOF_TOOLFILE > k4geo.xml
-<tool name="k4geo" version="${K4GEO_VERSION}">
-  <lib name="k4geo"/>
-  <lib name="k4geoG4"/>
-  <lib name="detectorCommon"/>
-  <lib name="detectorSegmentations"/>
-  <lib name="detectorSegmentationsPlugin"/>
-  <client>
-    <environment name="K4GEO_BASE" default="\$CMSSW_BASE/install/k4geo"/>
-    <environment name="INCLUDE" default="\$K4GEO_BASE/include"/>
-    <environment name="LIBDIR" default="\$K4GEO_BASE/lib"/>
-  </client>
-  <runtime name="PATH" default="\$K4GEO_BASE/bin" type="path"/>
-  <use name="xerces-c"/>
-  <use name="dd4hep-core"/>
-  <use name="geant4core"/>
-  <use name="dd4hep-geant4"/>
-  <use name="lcio"/>
-  <use name="podio"/>
-  <use name="edm4hep"/>
-</tool>
-EOF_TOOLFILE
-
-mv k4geo.xml ${CMSSW_BASE}/config/toolbox/${SCRAM_ARCH}/tools/selected/
-scram setup k4geo
+update_paths ${K4GEO_PREFIX}

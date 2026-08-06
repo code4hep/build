@@ -18,13 +18,9 @@ cmsrel ${CMSSW_VERSION}
 cd ${CMSSW_VERSION}/src
 cmsenv
 
-git cms-init
-git clone git@github.com:code4hep/Code4hep
+cd ${BUILD_DIR}
 
-mkdir -p ${CMSSW_BASE}/build
-mkdir -p ${CMSSW_BASE}/install
-cd ${CMSSW_BASE}/build
+mkdir -p tmp
+mkdir -p install
+cd tmp
 ${SETUP_DIR}/install.sh
-
-cd ${CMSSW_BASE}/src
-scram b -j ${C4H_BUILD_CORES}

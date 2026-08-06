@@ -8,19 +8,9 @@ cd cmake-4.1.2
 # enough of itself that cmake can completely build itself in
 # the next step
 
-./bootstrap --prefix=${CMSSW_BASE}/install/cmake/
+CMAKE_PREFIX=${INSTALL_DIR}/cmake/
+./bootstrap --prefix=${CMAKE_PREFIX}
 make -j ${C4H_BUILD_CORES}
 make install
 
-# scram
-cat << 'EOF_TOOLFILE' > cmake.xml
-<tool name="cmake" version="4.1.2">
-  <client>
-    <environment name="CMAKE_BASE" default="$CMSSW_BASE/install/cmake"/>
-  </client>
-  <runtime name="PATH" value="$CMAKE_BASE/bin" type="path"/>
-</tool>
-EOF_TOOLFILE
-
-mv cmake.xml ${CMSSW_BASE}/config/toolbox/${SCRAM_ARCH}/tools/selected/
-scram setup cmake
+update_paths ${CMAKE_PREFIX}

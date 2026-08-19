@@ -29,14 +29,22 @@ update_paths(){
 	if [ -d "$EXT_LIB64" ]; then
 		export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$EXT_LIB64
 	fi
+	PYVER=$(python3 -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
+	EXT_PY="$EXT_BASE"/lib/python${PYVER}/site-packages
+	if [ -d "$EXT_PY" ]; then
+		export PYTHON3PATH=$PYTHON3PATH:$EXT_PY
+	fi
+	EXT_INC="$EXT_BASE"/include
+	if [ -d "$EXT_INC" ]; then
+		export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$EXT_INC
+	fi
 }
 export -f update_paths
 
 source common.sh
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 if [ -e "$CMSSW_DIR" ]; then
-	cd ${CMSSW_DIR}/src
-	cmsenv
+	pushd ${CMSSW_DIR}/src && cmsenv && popd
 fi
 if [ -d "$INSTALL_DIR" ]; then
 	for EXT in "$INSTALL_DIR"/*/; do

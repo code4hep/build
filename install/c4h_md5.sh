@@ -2,6 +2,7 @@
 
 git clone https://github.com/Dr15Jones/c4h_md5
 cd c4h_md5
+git checkout 2afdaea16410ab54c500a38c22617273dfd408dd
 mkdir build_c4h_md5
 cd build_c4h_md5
 

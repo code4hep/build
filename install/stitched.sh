@@ -1,8 +1,9 @@
 #!/bin/bash
 
-STITCHED_VERSION=main_2026_05_27
-git clone https://github.com/code4hep/stitched-alpha2 -b ${STITCHED_VERSION} stitched
+STITCHED_VERSION=stitched-2026-08-21
+git clone https://github.com/code4hep/stitched-alpha2 stitched
 cd stitched
+git checkout ${STITCHED_VERSION}
 mkdir build_stitched
 cd build_stitched
 

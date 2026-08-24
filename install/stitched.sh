@@ -26,4 +26,4 @@ cmake ../ \
 
 make -j ${C4H_BUILD_CORES} install
 
-update_paths ${STITCHED_PREFIX}
+source ${STITCHED_PREFIX}/bin/stitched_env.sh

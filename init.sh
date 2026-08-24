@@ -48,6 +48,10 @@ if [ -e "$CMSSW_DIR" ]; then
 fi
 if [ -d "$INSTALL_DIR" ]; then
 	for EXT in "$INSTALL_DIR"/*/; do
-		update_paths "$EXT"
+		if [ "$EXT" = "stitched" ]; then
+			source "$INSTALL_DIR/stitched/bin/stitched_env.sh"
+		else
+			update_paths "$EXT"
+		fi
 	done
 fi

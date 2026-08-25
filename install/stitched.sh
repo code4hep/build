@@ -20,7 +20,6 @@ ${INSTALL_DIR}/c4h_md5 \
 cmake ../ \
   -DCMAKE_INSTALL_PREFIX=${STITCHED_PREFIX} \
   -DCMAKE_BUILD_TYPE="$CMAKE_BUILD_TYPE" \
-  -DPython_INCLUDE_DIR=$(scram_tag python3 INCLUDE) \
   -DCMAKE_PREFIX_PATH=$(join_path "${CMAKE_PREFIXES[@]}") \
   -DCLHEP_ROOT="$(find $(scram_tag clhep LIBDIR) -maxdepth 1 -type d -name "CLHEP*" -print -quit)"
 

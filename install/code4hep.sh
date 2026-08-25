@@ -61,6 +61,7 @@ cmake ../ \
   -DPythia8_INCLUDE_DIR=$(scram_tag pythia8 INCLUDE) \
   -DPythia8_LIBRARY=$(scram_tag pythia8 LIBDIR)/libpythia8.so \
   -DCMAKE_PREFIX_PATH=$(join_path "${CMAKE_PREFIXES[@]}") \
+  -DPython_INCLUDE_DIR=$(scram_tag python3 INCLUDE) \
   -DPython3_ROOT_DIR=$(scram_tag python3 PYTHON3_BASE) \
   -DCLHEP_ROOT="$(find $(scram_tag clhep LIBDIR) -maxdepth 1 -type d -name "CLHEP*" -print -quit)" \
   -DXercesC_INCLUDE_DIR=$(scram_tag xerces-c INCLUDE) \

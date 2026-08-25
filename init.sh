@@ -14,6 +14,24 @@ join_path(){
 }
 export -f join_path
 
+remove_from_path(){
+	PATH_VAR="$1"
+	PATH_REM="$2"
+	PATH_CURR="${!PATH_VAR}"
+	PATH_NEW=$(echo "$PATH_CURR" | tr ':' '\n' | grep -v -x "$PATH_REM" | paste -sd:)
+	export "$PATH_VAR"="$PATH_NEW"
+}
+
+remove_from_paths(){
+	# only use CMSSW for externals
+	# avoid conflicts from local libraries
+	for BASE_VAR in CMSSW_BASE CMSSW_RELEASE_BASE; do
+		remove_from_path PATH "${!BASE_VAR}/bin/${SCRAM_ARCH}"
+		remove_from_path LD_LIBRARY_PATH "${!BASE_VAR}/lib/${SCRAM_ARCH}"
+		remove_from_path LD_LIBRARY_PATH "${!BASE_VAR}/biglib/${SCRAM_ARCH}"
+	done
+}
+
 update_paths(){
 	EXT_BASE="$1"
 	EXT_BASE="${EXT_BASE%/}"
@@ -45,6 +63,7 @@ source common.sh
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 if [ -e "$CMSSW_DIR" ]; then
 	pushd ${CMSSW_DIR}/src && cmsenv && popd
+	remove_from_paths
 fi
 if [ -d "$INSTALL_DIR" ]; then
 	for EXT in "$INSTALL_DIR"/*/; do

@@ -29,6 +29,8 @@ remove_from_paths(){
 		remove_from_path PATH "${!BASE_VAR}/bin/${SCRAM_ARCH}"
 		remove_from_path LD_LIBRARY_PATH "${!BASE_VAR}/lib/${SCRAM_ARCH}"
 		remove_from_path LD_LIBRARY_PATH "${!BASE_VAR}/biglib/${SCRAM_ARCH}"
+		remove_from_path PYTHON3PATH "${!BASE_VAR}/python"
+		remove_from_path PYTHON3PATH "${!BASE_VAR}/lib/${SCRAM_ARCH}"
 	done
 }
 
@@ -70,6 +72,8 @@ if [ -d "$INSTALL_DIR" ]; then
 		EXTNAME=$(basename $EXT)
 		if [ "$EXTNAME" = "stitched" ]; then
 			source "$INSTALL_DIR/stitched/bin/stitched_env.sh"
+			# CMSSW uses PYTHON3PATH rather than PYTHONPATH
+			export PYTHON3PATH=${PYTHONPATH}:${PYTHON3PATH}
 		else
 			update_paths "$EXT"
 		fi

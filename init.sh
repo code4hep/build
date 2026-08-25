@@ -19,24 +19,24 @@ update_paths(){
 	EXT_BASE="${EXT_BASE%/}"
 	EXT_BIN="$EXT_BASE"/bin
 	if [ -d "$EXT_BIN" ]; then
-		export PATH=$PATH:$EXT_BIN
+		export PATH=${EXT_BIN}:${PATH}
 	fi
 	EXT_LIB="$EXT_BASE"/lib
 	if [ -d "$EXT_LIB" ]; then
-		export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$EXT_LIB
+		export LD_LIBRARY_PATH=${EXT_LIB}:${LD_LIBRARY_PATH}
 	fi
 	EXT_LIB64="$EXT_BASE"/lib64
 	if [ -d "$EXT_LIB64" ]; then
-		export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$EXT_LIB64
+		export LD_LIBRARY_PATH=${EXT_LIB64}:${LD_LIBRARY_PATH}
 	fi
 	PYVER=$(python3 -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
 	EXT_PY="$EXT_BASE"/lib/python${PYVER}/site-packages
 	if [ -d "$EXT_PY" ]; then
-		export PYTHON3PATH=$PYTHON3PATH:$EXT_PY
+		export PYTHON3PATH=${EXT_PY}:${PYTHON3PATH}
 	fi
 	EXT_INC="$EXT_BASE"/include
 	if [ -d "$EXT_INC" ]; then
-		export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$EXT_INC
+		export ROOT_INCLUDE_PATH=${EXT_INC}:${ROOT_INCLUDE_PATH}
 	fi
 }
 export -f update_paths
@@ -48,7 +48,8 @@ if [ -e "$CMSSW_DIR" ]; then
 fi
 if [ -d "$INSTALL_DIR" ]; then
 	for EXT in "$INSTALL_DIR"/*/; do
-		if [ "$EXT" = "stitched" ]; then
+		EXTNAME=$(basename $EXT)
+		if [ "$EXTNAME" = "stitched" ]; then
 			source "$INSTALL_DIR/stitched/bin/stitched_env.sh"
 		else
 			update_paths "$EXT"

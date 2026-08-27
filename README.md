@@ -35,3 +35,11 @@ scratch/
    tmp/
 ```
 where `CMSSW_*` is the CMSSW release used for dependencies.
+
+## Unit tests
+
+To run the Code4hep unit tests after installation:
+```bash
+cd ../tmp/Code4hep/
+ctest --test-dir build_Code4hep
+```

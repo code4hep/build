@@ -26,20 +26,13 @@ include("MY_GEANT4_DIR/Geant4Config.cmake")
 
 # 2. Create the global target using the newly loaded variables
 if(Geant4_FOUND AND NOT TARGET Geant4::Geant4)
-    message(STATUS "[Proxy] Creating global target Geant4::Geant4 from \${Geant4_LIBRARIES}")
+    message(STATUS "[Proxy] Creating global target Geant4::Geant4 from \${Geant4_LIBRARIES} as IMPORTED")
 
-    # Step A: Create a local interface library
-    add_library(Geant4_wrapper_target INTERFACE)
+    # By defining it as INTERFACE IMPORTED GLOBAL, CMake treats it like a system target
+    add_library(Geant4::Geant4 INTERFACE IMPORTED GLOBAL)
 
-    # Step B: Link the dynamic libraries to our local wrapper
-    # Hide the wrapper dependency from public export sets
-    target_link_libraries(Geant4_wrapper_target INTERFACE
-        $<BUILD_INTERFACE:${Geant4_LIBRARIES}>
-    )
-
-    # Step C: Create the ALIAS target
-    # This target is automatically visible globally across the project.
-    add_library(Geant4::Geant4 ALIAS Geant4_wrapper_target)
+    # Directly link the dynamic Geant4 libraries to it
+    target_link_libraries(Geant4::Geant4 INTERFACE ${Geant4_LIBRARIES})
 endif()
 EOF
 sed -i 's~MY_GEANT4_DIR~'${INSTALL_DIR}/geant4/lib/cmake/Geant4'~' ${PATCH_DIR}/Geant4Config.cmake
@@ -68,6 +61,7 @@ cmake ../ \
   -DPythia8_INCLUDE_DIR=$(scram_tag pythia8 INCLUDE) \
   -DPythia8_LIBRARY=$(scram_tag pythia8 LIBDIR)/libpythia8.so \
   -DCMAKE_PREFIX_PATH=$(join_path "${CMAKE_PREFIXES[@]}") \
+  -DPython_INCLUDE_DIR=$(scram_tag python3 INCLUDE) \
   -DPython3_ROOT_DIR=$(scram_tag python3 PYTHON3_BASE) \
   -DCLHEP_ROOT="$(find $(scram_tag clhep LIBDIR) -maxdepth 1 -type d -name "CLHEP*" -print -quit)" \
   -DXercesC_INCLUDE_DIR=$(scram_tag xerces-c INCLUDE) \

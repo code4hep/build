@@ -54,6 +54,10 @@ update_paths(){
 	if [ -d "$EXT_PY" ]; then
 		export PYTHON3PATH=${EXT_PY}:${PYTHON3PATH}
 	fi
+	EXT_PY="$EXT_BASE"/python
+	if [ -d "$EXT_PY" ]; then
+		export PYTHON3PATH=${EXT_PY}:${PYTHON3PATH}
+	fi
 	EXT_INC="$EXT_BASE"/include
 	if [ -d "$EXT_INC" ]; then
 		export ROOT_INCLUDE_PATH=${EXT_INC}:${ROOT_INCLUDE_PATH}

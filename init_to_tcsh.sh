@@ -57,7 +57,7 @@ while IFS= read -r name; do
 		echo "unsetenv $name"
 		n_unset=$((n_unset + 1))
 	else
-		printf 'setenv %s %s\n' "$name" "${AFTER[$name]}"
+		printf "setenv %s '%s';\n" "$name" "${AFTER[$name]}"
 		n_set=$((n_set + 1))
 	fi
 done < <(printf '%s\n' "${!ALL_KEYS[@]}" | sort)

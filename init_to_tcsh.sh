@@ -61,5 +61,3 @@ while IFS= read -r name; do
 		n_set=$((n_set + 1))
 	fi
 done < <(printf '%s\n' "${!ALL_KEYS[@]}" | sort)
-
-echo "# -> $n_set setenv, $n_unset unsetenv" >&2

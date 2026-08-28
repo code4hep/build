@@ -54,7 +54,7 @@ export -f update_paths
 source common.sh
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 if [ -e "$CMSSW_DIR" ]; then
-	pushd ${CMSSW_DIR}/src && cmsenv && popd
+	pushd ${CMSSW_DIR}/src > /dev/null && cmsenv && popd > /dev/null
 	remove_from_paths
 fi
 if [ -d "$INSTALL_DIR" ]; then

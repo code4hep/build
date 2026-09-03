@@ -1,19 +1,5 @@
 #!/bin/bash
 
-scram_tag(){
-	cd $CMSSW_BASE
-	TOOL="$1"
-	TAG="$2"
-	scram tool tag $TOOL $TAG 2> /dev/null || true
-}
-export -f scram_tag
-
-join_path(){
-	local IFS=';'
-	echo "$*"
-}
-export -f join_path
-
 remove_from_path(){
 	PATH_VAR="$1"
 	PATH_REM="$2"
@@ -54,6 +40,10 @@ update_paths(){
 	if [ -d "$EXT_PY" ]; then
 		export PYTHON3PATH=${EXT_PY}:${PYTHON3PATH}
 	fi
+	EXT_PY="$EXT_BASE"/python
+	if [ -d "$EXT_PY" ]; then
+		export PYTHON3PATH=${EXT_PY}:${PYTHON3PATH}
+	fi
 	EXT_INC="$EXT_BASE"/include
 	if [ -d "$EXT_INC" ]; then
 		export ROOT_INCLUDE_PATH=${EXT_INC}:${ROOT_INCLUDE_PATH}
@@ -64,7 +54,7 @@ export -f update_paths
 source common.sh
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 if [ -e "$CMSSW_DIR" ]; then
-	pushd ${CMSSW_DIR}/src && cmsenv && popd
+	pushd ${CMSSW_DIR}/src > /dev/null && cmsenv && popd > /dev/null
 	remove_from_paths
 fi
 if [ -d "$INSTALL_DIR" ]; then

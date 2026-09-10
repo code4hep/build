@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PODIO_VERSION=v01-06
+PODIO_VERSION=v01-07
 git clone https://github.com/AIDASoft/podio.git -b ${PODIO_VERSION}
 cd podio
 mkdir build_podio

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-EDM4HEP_VERSION=v00-99-04
+EDM4HEP_VERSION=v01-00
 git clone https://github.com/key4hep/EDM4hep.git -b ${EDM4HEP_VERSION}
 cd EDM4hep
 mkdir build_edm4hep

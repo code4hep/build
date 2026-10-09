@@ -1,6 +1,6 @@
 #!/bin/bash
 
-STITCHED_VERSION=stitched-2026-08-21
+STITCHED_VERSION=stitched-2026-09-30
 git clone https://github.com/code4hep/stitched-alpha2 stitched
 cd stitched
 git checkout ${STITCHED_VERSION}
